@@ -1,0 +1,58 @@
+/*-- task 2 Create and execute an Inner Join  EXERCISE 1 
+
+SELECT HumanResources.Employee.LoginID, HumanResources.Employee.BusinessEntityID
+FROM HumanResources.Employee
+INNER JOIN Sales.SalesPerson ON HumanResources.Employee.BusinessEntityID = HumanResources.Employee.BusinessEntityID
+
+
+-- task 3 Create and execute an Inner Join 
+*/
+
+SELECT Production.ProductReview.ProductID, Production.ProductReview.ProductReviewID,
+Production.ProductReview.Rating
+FROM Production.Product
+LEFT OUTER JOIN Production.ProductReview ON Production.ProductReview.ProductID = Production.ProductReview.ProductID
+WHERE Production.ProductReview.ProductID IS NOT NULL 
+
+
+SELECT Sales.SalesTerritory.TerritoryID, sales.SalesPerson.TerritoryID
+FROM Sales.SalesTerritory
+RIGHT OUTER JOIN sales.SalesPerson ON Sales.SalesTerritory.TerritoryID = sales.SalesPerson.TerritoryID
+
+-- exercise 2 
+
+SELECT Production.Product.ProductID, Production.Product.Name, purchasing.Vendor.BusinessEntityID, Purchasing.Vendor.Name 
+FROM Production.Product
+JOIN Purchasing.ProductVendor pv ON Production.Product.ProductID = Production.Product.ProductID
+JOIN Purchasing.Vendor ON pv.BusinessEntityID = purchasing.Vendor.BusinessEntityID
+
+
+SELECT DISTINCT Production.Product.ProductID, Production.Product.Name AS ProductName
+FROM Production.Product
+JOIN Purchasing.ProductVendor ON Production.Product.ProductID = Purchasing.ProductVendor.ProductID
+JOIN Purchasing.Vendor ON Purchasing.ProductVendor.BusinessEntityID = Purchasing.Vendor.BusinessEntityID;
+
+
+--task 1  Task 1: Create and execute a query using a Self Join 
+
+SELECT Purchasing.Vendor.Name, production.product.Name, Production.product.ProductID
+FROM purchasing.vendor
+JOIN production.product ON Purchasing.Vendor.BusinessEntityID = Purchasing.Vendor.BusinessEntityID
+ORDER BY Production.product.ProductID
+
+
+-- task 2 Task 2: Create and execute a query using a Self Join and the DISTINCT clause 
+
+
+SELECT DISTINCT purchasing.vendor.Name, production.Product.Name , Production.product.ProductID
+FROM purchasing.vendor
+JOIN production.product ON Purchasing.Vendor.BusinessEntityID = Purchasing.Vendor.BusinessEntityID
+ORDER BY Production.product.ProductID
+
+
+
+-- task 2 Create a query using EXCEPT that lists all product IDs from the Production.Product table that are not on the Production.WorkOrder table. 
+
+
+
+

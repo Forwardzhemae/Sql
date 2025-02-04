@@ -1,0 +1,23 @@
+SELECT orders.onum, customers.cname
+FROM orders
+JOIN customers ON orders.cnum = customers.cnum;
+
+
+SELECT orders.onum, customers.cname, salespeople.sname
+FROM orders
+JOIN customers ON orders.cnum = customers.cnum
+JOIN salespeople ON orders.snum = salespeople.snum;
+
+
+SELECT customers.cname, salespeople.sname, salespeople.comm
+FROM customers
+JOIN salespeople ON customers.cnum = salespeople.comm
+WHERE salespeople.comm  0.12
+
+
+SELECT orders.onum, customers.cname, salespeople.sname,
+       orders.amt, (orders.amt  salespeople.comm) AS commission
+FROM orders
+JOIN customers ON orders.cnum = customers.cnum
+JOIN salespeople ON orders.snum = salespeople.snum 
+WHERE customers.rating  100;

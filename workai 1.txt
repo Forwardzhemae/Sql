@@ -1,0 +1,30 @@
+SELECT cname, city
+FROM customers
+WHERE cname = (SELECT MAX(amt)
+		FROM orders
+		JOIN salespeople ON orders.onum = salespeople.snum
+		WHERE amt >= 1300 AND comm >= 10
+
+
+SELECT onum, cnum, snum
+FROM orders
+JOIN salespeople ON orders.onum = salespeople.snum 
+JOIN customers ON orders.onum = customers.cnum
+WHERE salespeople.city <> customers.city
+
+SELECT cname
+FROM customers
+WHERE cname = (SELECT MAX(comm)
+		FROM orders
+		JOIN salespeople ON orders.onum = salespeople.snum)
+
+SELECT cnum, cname, city
+FROM customers
+WHERE cnum = (SELECT SUM(amt)
+		FROM orders
+		HERE rating >= 100)
+
+SELECT cname, city, rating
+FROM customers
+WHERE cnum = (SELECT MAX(amt)
+		FROM orders) 

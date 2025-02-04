@@ -1,0 +1,33 @@
+SELECT *
+FROM Production.product
+WHERE ListPrice = (SELECT ListPrice
+				FROM Production.product
+				WHERE Name = 'Chainring Bolts')
+
+SELECT * 
+FROM Production.ProductSubcategory
+WHERE Name = (SELECT Name FROM Production.ProductSubcategory WHERE Name = 'Wheels')
+
+
+SELECT D.LastName, D.FirstName, D.BusinessEntityID
+FROM Person.Person AS D
+JOIN HumanResources.Employee AS E ON D.BusinessEntityID = E.BusinessEntityID
+WHERE 5000.00 IN
+    (SELECT sp.Bonus
+    FROM Sales.SalesPerson sp
+    WHERE sp.BusinessEntityID = E.BusinessEntityID)
+
+
+SELECT ProductID, orderqty
+FROM Sales.SalesOrderDetail 
+WHERE orderqty = (SELECT AVG(orderqty)
+					FROM Production.product)
+					
+
+
+
+
+
+
+
+				

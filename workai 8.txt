@@ -1,0 +1,29 @@
+INSERT INTO salespeople(snum, sname, city) VALUES(1100, 'Blanco', 'San Jose') --- 1
+
+
+DELETE FROM ORDERS --- 2
+WHERE cnum = (SELECT cnum
+				FROM customers
+				WHERE cname = 'Clemens')
+
+
+
+UPDATE customers --- 3
+SET rating = rating + 100
+WHERE city = 'Rome'
+
+
+UPDATE salespeople --- 4
+SET sname = 'Motika'
+WHERE sname = 'Serres'
+
+
+UPDATE salespeople --- 5
+SET comm = comm * 1.10
+WHERE snum IN (
+    SELECT snum
+    FROM orders
+    GROUP BY snum
+    HAVING SUM(amt) > 2500)
+
+

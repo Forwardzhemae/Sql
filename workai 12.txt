@@ -1,0 +1,59 @@
+Lab 13  Constraining the Values of Your Data
+Exercise 1
+1. Create the Orders table so that all onum values as well as 
+all combinations of cnum and snum are different from 
+one another, and so that NULL values are excluded from 
+the date field. 
+CREATE TABLE orders (
+	onum INT PRIMARY KEY NOT NULL,
+	cnum INT NOT NULL,
+	SNUM INT NOT NULL,
+	Odate datetime NOT NULL,
+	Amt DECIMAL(10,2)
+	UNIQUE (cnum,snum)
+)
+
+2. Create the Salespeople table so that the default  
+commission is 10% with no NULLS permitted, snum is the  
+primary key, and all names fall alphabetically between A 
+and M, inclusive (assume all names will be uppercase).
+CREATE TABLE salespeople (
+	Snum INT PRIMARY KEY NOT NULL,
+	Sname VARCHAR(100) NOT NULL CHECK 
+(sname >= ‘A’ AND sname <=’M’),
+	Comm DECIMAL(18,2) NOT NULL DEFAULT 10.00)
+	
+3. Create the Orders table, making sure that the onum is 
+greater than the cnum, and the cnum is greater than the 
+snum. Allow no NULLS in any of these three fields.
+CREATE TABLR orders (
+	onum INT NOT NULL CHECK (onum > cnum),
+	cnum INT NOT NULL CHECK(cnum >= snum),
+	snum INT NOT NULL,
+	odate DATETIME NOT NULL,
+	amt DECIMAL(10,2)
+	PRIMARY KEY(onum));
+	
+Exercise 2 
+1.	Create a table named Cityorders. It should support the same onum, amt, and snum fields as the Orders table, and the same cnum and city fields as the Customers table, so that each customer's order will be entered in this table along with its city. The onum field will be the primary key of Cityorders. The onum, quantity fields in Cityorders must have restrictions in accordance with the Orders tables, (that is, the specified key appears) in the cnum field, displaying the key to the Customers table. Deleting rows in Customers resulted in the corresponding rows being deleted in Cityorders, and changing the parent key in Customers resulted in its values in Cityorders being replaced with the default value of 5000. Before startup, the parent keys in these tables already have corresponding restrictions. Fill out the table, make changes and delete rows in the Customers table and ensure that they match the corresponding changes in the Cityorders table.
+CREATE TABLE Customers (
+	cnum INT PRIMARY KEY,
+	cname NVARCHAR(100) NOT NULL,
+	city NVARCHAR(100) NOT NULL
+);
+CREATE TABLE Cityorders (
+	onum INT PRIMARY KEY,
+	amt DECIMAL(10, 2) NOT NULL,
+	snum INT NOT NULL,
+	cnum INT NOT NULL DEFAULT 5000, -- Default value for foreign key updates
+	city NVARCHAR(100) NOT NULL,
+	FOREIGN KEY (cnum) REFERENCES Customers(cnum)
+	ON DELETE CASCADE
+	ON UPDATE SET DEFAULT
+);
+DELETE FROM Customers WHERE cnum = 2;
+
+UPDATE Customers SET cnum = 4 WHERE cnum = 3;
+
+SELECT * FROM Customers;
+SELECT * FROM Cityorders;

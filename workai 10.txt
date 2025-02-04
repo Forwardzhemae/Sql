@@ -1,0 +1,52 @@
+
+
+
+SELECT orders.onum, customers.cname
+FROM orders
+JOIN customers ON orders.cnum = customers.cnum
+
+
+SELECT orders.onum, customers.cname, salespeople.sname
+FROM orders
+JOIN customers ON orders.cnum = customers.cnum
+JOIN salespeople ON orders.snum = salespeople.snum
+
+
+SELECT customers.cname, salespeople.sname, salespeople.comm
+FROM customers
+JOIN salespeople ON customers.cnum = salespeople.comm
+WHERE salespeople.comm = 0.12
+
+
+SELECT orders.onum, customers.cname, salespeople.sname,
+       orders.amt, orders.amt, salespeople.comm
+FROM orders
+JOIN customers ON orders.cnum = customers.cnum
+JOIN salespeople ON orders.snum = salespeople.snum 
+WHERE customers.rating = 100
+
+
+SELECT DISTINCT salespeople.sname, customers.cname, salespeople.city, customers.city 
+FROM salespeople
+JOIN customers ON salespeople.snum = customers.cnum
+WHERE salespeople.city = customers.city 
+
+
+SELECT DISTINCT salespeople.sname, salespeople.sname, salespeople.city
+FROM salespeople 
+JOIN salespeople s2 ON salespeople.city = salespeople.city
+WHERE salespeople.snum < salespeople.snum
+ORDER BY salespeople.city, salespeople.sname, salespeople.sname
+
+
+SELECT m.sname,
+       n.sname,
+       m.city
+FROM salespeople m,
+     salespeople n
+WHERE m.city=n.city
+  AND m.sname<n.sname 
+  
+SELECT cname,city 
+FROM customers 
+WHERE rating = (SELECT rating FROM customers WHERE cname='hoffman');

@@ -1,0 +1,70 @@
+INSERT INTO Production.UnitMeasure(UnitMeasureCode, Name, ModifiedDate)  -- 1
+VALUES('F2', 'square feet', 'getdate()')
+
+
+INSERT INTO Person.PersonPhone(BusinessEntityID, PhoneNumber, PhoneNumberTypeID, ModifiedDate)
+VALUES(1705, 864-555-2101, 3, 'GETDATE()')
+INSERT INTO Person.PersonPhone(BusinessEntityID, PhoneNumber, PhoneNumberTypeID, ModifiedDate)
+VALUES(1706, 712-555-0118, 1, 'GETDATE()')   ---- 2
+
+
+DECLARE @MyTableVar table(
+    ScrapReasonID smallint, 
+    Name varchar(50), 
+    ModifiedDate datetime
+);
+
+INSERT INTO @MyTableVar (ScrapReasonID, Name, ModifiedDate)
+VALUES (1, 'Faulty Wiring', GETDATE());
+
+---SELECT * FROM @MyTableVar ---
+
+
+
+
+INSERT INTO @MyTableVar (ScrapreasonID, Name, ModifiedDate)
+OUTPUT inserted.ScrapreasonID, inserted.Name, inserted.ModifiedDate
+SELECT ScrapreasonID, Name, ModifiedDate
+FROM Production.ScrapReason; --- 4
+
+
+--SELECT * FROM @MyTableVar;--
+
+
+--- exercise 2
+
+DELETE FROM Production.ProductCostHistory
+WHERE StandardCost > 1000.00 -- 
+
+DELETE FROM Sales.SalesPersonQuotaHistory
+WHERE BusinessEntityID IN (
+    SELECT BusinessEntityID
+    FROM Sales.SalesPerson
+    WHERE SalesYTD > 1000000.00
+
+
+DELETE FROM Production.ProductCostHistory  ----
+WHERE StandardCost >= 1000
+
+
+DELETE FROM sales.SalesPersonQuotaHistory
+WHERE SalesQuota > 1000000
+
+---- EXERCISE 3
+
+
+UPDATE Sales.SalesPerson 
+SET Bonus = 6000
+WHERE CommissionPct = 0.10 AND SalesQuota = NULL  ---TASK 1
+
+UPDATE Production.Product
+SET Color = 'metalic red'
+WHERE color = 'red'
+
+
+
+
+
+
+
+

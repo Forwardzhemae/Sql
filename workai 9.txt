@@ -1,0 +1,49 @@
+SELECT * 
+FROM orders
+WHERE cnum = (SELECT cnum 
+			FROM customers 
+			WHERE cname = 'cisneros')
+
+SELECT cnum, cname, rating
+FROM customers 
+WHERE rating > (SELECT AVG(rating) 
+				FROM customers
+
+
+
+SELECT snum, SUM(amt)
+FROM orders
+GROUP BY snum
+HAVING SUM(amt) > (SELECT MAX(amt) 
+					FROM orders)
+
+
+SELECT cname, cnum 
+FROM customers
+WHERE rating = (
+    SELECT MAX(rating)
+    FROM customers
+    WHERE customers.city = customers.city)
+
+SELECT *
+FROM salespeople
+WHERE EXISTS (SELECT *
+			FROM customers
+			WHERE rating > 300)
+
+SELECT *
+FROM salespeople s
+WHERE EXISTS (SELECT *
+				FROM customers c
+				WHERE s.city != c.city
+
+SELECT *
+FROM salespeople
+WHERE EXISTS (
+    SELECT *
+    FROM customers
+    WHERE customers.snum = customers.snum
+
+
+
+				

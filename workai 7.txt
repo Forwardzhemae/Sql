@@ -1,0 +1,89 @@
+
+--- EX 1 
+CREATE TYPE dbo.ShortDescription 
+FROM nvarchar(100) NOT NULL
+
+CREATE TYPE dbo.cashvalue
+FROM DECIMAL(8,2) NOT NULL
+
+CREATE TYPE dbo.shortdescprition
+FROM DECIMAL(2,2)
+
+-- TASK 1 EX 2
+CREATE TABLE results (
+	cname VARCHAR(100) NOT NULL,
+	cnum INT NOT NULL, 
+	amt INT NOT NULL
+	);
+
+SELECT cname, cnum, amt 
+FROM results 
+WHERE cnum = (SELECT amt
+				FROM orders
+				WHERE amt > 1000)
+
+
+CREATE TABLE returngoods (
+	returnid INT NOT NULL,
+	Productid INT NOT NULL,
+	Customerid INT NOT NULL,
+	returtndate DATETIME NOT NULL,
+	returnreason Shortdescription NOT NULL);
+
+	---- EX 3
+
+CREATE INDEX IX_Orders_OrderDate ON Orders (odate) --- 1 
+SELECT odate, COUNT(*) AS OrderCount, SUM(amt) 
+FROM Orders
+GROUP BY odate
+
+ALTER TABLE Orders   --- 2
+ADD CONSTRAINT UC_onum UNIQUE (onum)
+CREATE UNIQUE INDEX IX_Orders_onum ON Orders (onum)
+
+CREATE INDEX IX_Orders_SalespersonDate  --- 3
+ON Orders (snum, odate)
+
+ALTER TABLE Customers --- 4
+ADD CONSTRAINT UQ_SalespersonRating
+UNIQUE (snum, rating)
+
+
+
+------------------------------ WS WS WS WS WS WS 
+
+
+SELECT cname, city
+FROM customers
+WHERE cname = (SELECT MAX(amt)
+		FROM orders
+		JOIN salespeople ON orders.onum = salespeople.snum
+		WHERE amt >= 1300 AND comm >= 10
+
+
+SELECT *
+FROM orders
+JOIN salespeople ON orders.onum = salespeople.snum 
+JOIN customers ON orders.onum = customers.cnum
+WHERE salespeople.city <> customers.city
+
+SELECT cname
+FROM customers
+WHERE cname = (SELECT MAX(comm)
+		FROM orders
+		JOIN salespeople ON orders.onum = salespeople.snum)
+
+SELECT cnum, cname, city
+FROM customers
+WHERE cnum = (SELECT SUM(amt)
+		FROM orders
+		WHERE rating >= 100)
+
+SELECT cname, city, rating
+FROM customers
+WHERE cnum = (SELECT MAX(amt)
+		FROM orders) 
+
+
+
+
